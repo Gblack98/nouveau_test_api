@@ -1,0 +1,28 @@
+# Étape 1 : Base image légère avec Python
+FROM python:3.11-slim
+
+# Étape 2 : Définir le dossier de travail dans le conteneur
+WORKDIR /app
+
+# Étape 3 : Installer les dépendances système utiles
+RUN apt-get update && apt-get install -y \
+    libglib2.0-0 libsm6 libxext6 libxrender-dev \
+    ffmpeg libgl1-mesa-glx unzip && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Étape 4 : Copier uniquement les fichiers nécessaires à l'API ravageur
+COPY api_ravageur.py ./api_ravageur.py
+COPY requirements.txt ./requirements.txt
+COPY models/modele_ravageur/ ./models/modele_ravageur/
+
+# Étape 5 : Installer les dépendances Python
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Étape 6 : Créer le dossier temporaire pour les crops
+RUN mkdir -p /tmp/pestai_crops
+
+# Étape 7 : Exposer le port utilisé par Uvicorn
+EXPOSE 10000
+
+# Étape 8 : Démarrer l’API avec uvicorn
+CMD ["uvicorn", "api_ravageur:app", "--host", "0.0.0.0", "--port", "10000"]
