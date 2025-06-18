@@ -18,8 +18,8 @@ COPY models/modele_feuille /app/models/modele_feuille
 # Créer le dossier pour les crops temporaires et modèles reconstruits
 RUN mkdir -p /tmp/pestai_crops /tmp/rebuilt_models
 
-# Exposer le port que uvicorn va écouter
-EXPOSE 10000
+# Définir port par défaut et le rendre dynamique
+ENV PORT=8000
 
-# Lancer l'application avec uvicorn
-CMD ["uvicorn", "api_feuille:app", "--host", "0.0.0.0", "--port", "10000"]
+# Lancer l'API avec uvicorn en écoutant sur $PORT
+CMD ["uvicorn", "api_feuille:app", "--host", "0.0.0.0", "--port", "8000"]
