@@ -1,0 +1,23 @@
+# Utiliser une image Python légère
+FROM python:3.11-slim
+
+# Définir le répertoire de travail dans le container
+WORKDIR /app
+
+# Copier uniquement le fichier requirements.txt puis installer les dépendances
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier uniquement l'API feuille et les modèles feuille (détection + classification)
+COPY api_feuille.py /app/api_feuille.py
+COPY models/modele_feuille /app/models/modele_feuille
+
+# Créer le dossier pour les crops temporaires et modèles reconstruits
+RUN mkdir -p /tmp/pestai_crops /tmp/rebuilt_models
+
+# Exposer le port que uvicorn va écouter
+EXPOSE 10000
+
+# Lancer l'application avec uvicorn
+CMD ["uvicorn", "api_feuille:app", "--host", "0.0.0.0", "--port", "10000"]
