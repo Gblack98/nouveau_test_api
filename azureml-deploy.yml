@@ -1,0 +1,16 @@
+$schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+name: pestai-endpoint
+endpoint_name: pestai-vision-api
+model: 
+  - path: ./models
+environment:
+  image: azureml/pestai-vision:1
+  inference_config:
+    command: uvicorn api_pestai_unifiee_docker:app --host 0.0.0.0 --port 8000
+    environment_variables:
+      CONF_THRESH: "0.4"
+      DEVICE: "cpu"
+resources:
+  cpu: 2
+  memory: 4Gi
+instance_type: Standard_DS2_v2
