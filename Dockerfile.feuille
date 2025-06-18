@@ -1,25 +1,27 @@
-# Utiliser une image Python légère
+# 🐍 Image Python légère
 FROM python:3.11-slim
-# 1. Installer les bibliothèques nécessaires à OpenCV
-RUN apt-get update && apt-get install -y libgl1 libglib2.0-0 && rm -rf /var/lib/apt/lists/*
 
-# Définir le répertoire de travail dans le container
+# 🧰 Installer les dépendances système (OpenCV, libGL, etc.)
+RUN apt-get update && \
+    apt-get install -y libgl1 libglib2.0-0 && \
+    rm -rf /var/lib/apt/lists/*
+
+# 📂 Définir le répertoire de travail
 WORKDIR /app
 
-# Copier uniquement le fichier requirements.txt puis installer les dépendances
+# 📦 Installer les dépendances Python
 COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier uniquement l'API feuille et les modèles feuille (détection + classification)
+# 📁 Copier uniquement les fichiers nécessaires à l'API feuille
 COPY api_feuille.py /app/api_feuille.py
 COPY models/modele_feuille /app/models/modele_feuille
 
-# Créer le dossier pour les crops temporaires et modèles reconstruits
+# 🗂️ Créer les dossiers temporaires utilisés par l'app
 RUN mkdir -p /tmp/pestai_crops /tmp/rebuilt_models
 
-# Définir port par défaut et le rendre dynamique
+# 🌐 Déclarer la variable d'environnement PORT (utile localement)
 ENV PORT=8000
 
-# Lancer l'API avec uvicorn en écoutant sur $PORT
-CMD ["uvicorn", "api_feuille:app", "--host", "0.0.0.0", "--port", "8000"]
+# 🚀 Lancer l'API avec un port dynamique compatible Render
+CMD ["sh", "-c", "uvicorn api_feuille:app --host 0.0.0.0 --port ${PORT}"]
