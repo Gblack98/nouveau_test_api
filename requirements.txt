@@ -4,17 +4,17 @@ uvicorn==0.34.3
 python-multipart==0.0.7  # Pour la gestion des uploads de fichiers
 
 # Computer Vision & Image Processing
-opencv-python-headless==4.11.0.86  # Version allégée sans GUI
-Pillow==11.2.1  # Traitement d'images
-numpy==1.26.4  # Dernière version compatible avec TensorFlow 2.18.0
+# opencv-python-headless==4.11.0.86  # Version allégée sans GUI
+# Pillow==11.2.1  # Traitement d'images
+# numpy==1.26.4  # Dernière version compatible avec TensorFlow 2.18.0
 
 # Machine Learning Frameworks
 onnxruntime==1.17.0  # Pour l'inférence ONNX
-tensorflow-cpu==2.18.0  # Version allégée (sans GPU)
-ultralytics==8.3.131  # Pour YOLO
+# tensorflow-cpu==2.18.0  # Version allégée (sans GPU)
+# ultralytics==8.3.131  # Pour YOLO
 
 # Data Validation & Serialization
-pydantic==1.10.22
+# pydantic==1.10.22
 
 # Utilitaires
 python-dateutil==2.9.0  # Pour la gestion du temps
