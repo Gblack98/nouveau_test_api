@@ -182,3 +182,14 @@ async def clean_old_files():
                 except Exception:
                     pass
         await asyncio.sleep(3600)
+
+
+import os
+import uvicorn
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "api_feuille:app",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 8000)),  # PORT injecté par Render
+    )
