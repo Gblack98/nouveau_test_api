@@ -1,25 +1,24 @@
-# Core FastAPI & ASGI
+# ==================== FastAPI Core ====================
 fastapi==0.115.12
 uvicorn==0.34.3
-python-multipart==0.0.7  # Pour la gestion des uploads de fichiers
+python-multipart==0.0.7  # Pour la gestion des fichiers envoyés (UploadFile)
 
-# Computer Vision & Image Processing
-# opencv-python-headless==4.11.0.86  # Version allégée sans GUI
-# Pillow==11.2.1  # Traitement d'images
-# numpy==1.26.4  # Dernière version compatible avec TensorFlow 2.18.0
+# ==================== Machine Learning (ONNX / TF / YOLO) ====================
+onnxruntime==1.17.0  # Inference ONNX
+tensorflow-cpu==2.18.0  # Modèle EfficientNet (.keras)
+ultralytics==8.3.131  # YOLOv8
 
-# Machine Learning Frameworks
-onnxruntime==1.17.0  # Pour l'inférence ONNX
-# tensorflow-cpu==2.18.0  # Version allégée (sans GPU)
-# ultralytics==8.3.131  # Pour YOLO
+# ==================== Computer Vision / Traitement Image ====================
+numpy==1.26.4  # Obligatoire pour Pillow, OpenCV, TensorFlow
+Pillow==11.2.1
+opencv-python-headless==4.11.0.86  # Version sans interface GUI, essentielle en prod
 
-# Data Validation & Serialization
-# pydantic==1.10.22
+# ==================== Data Validation / Serialisation ====================
+pydantic==1.10.22  # Pour les schémas de validation (facultatif si FastAPI v2+)
 
-# Utilitaires
-python-dateutil==2.9.0  # Pour la gestion du temps
-requests==2.32.4  # Pour les téléchargements HTTP (si besoin)
+# ==================== Utilitaires ====================
+requests==2.32.4  # Requêtes HTTP (download de modèles, etc.)
+python-dateutil==2.9.0  # Gestion de date (si jamais utilisée)
 
-# Optimisation (optionnel)
-orjson==3.10.3  # Pour des JSON plus rapides
-
+# ==================== Optimisation ====================
+orjson==3.10.3  # JSON rapide et léger
